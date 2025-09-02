@@ -1,8 +1,9 @@
 #include "circle.h"
+#include "circle.cpp"
+#include "Sphere.cpp"
 #include "point.h"
 #include "point3d.h"
 #include "Sphere.h"
-#include "../Circle/circle_utils.h"
 #include <iostream>
 #include <iostream>
 #include <cassert>
@@ -52,7 +53,7 @@ namespace TestSystem {
             return true;
         }
         std::stringstream ss;
-        ss << "Ожидаемый результат: " << expected << ", фактический результат: " << actual << ".";
+        ss << "Ожидаемое значение: " << expected << ", полученное значение: " << actual << ".";
         throw std::runtime_error(ss.str());
     }
 
@@ -104,7 +105,7 @@ bool test_circles_intersect() {
 
 bool test_circles_one_inside_another() {
     Circle c1(0, 0, 5), c2(1, 0, 2);
-    return TestSystem::check(std::string("Одна внутри другой"), get_circles_relation(c1, c2));
+    return TestSystem::check(std::string("Один внутри другого"), get_circles_relation(c1, c2));
 }
 
 bool test_circles_separate() {
@@ -112,8 +113,58 @@ bool test_circles_separate() {
     return TestSystem::check(std::string("Не пересекаются"), get_circles_relation(c1, c2));
 }
 
+
+bool test_point3d_constructor() {
+    Point3D p(1.0f, 2.0f, 3.0f, 0.0f);
+    return TestSystem::check(1.0f, p.get_x()) && 
+           TestSystem::check(2.0f, p.get_y()) && 
+           TestSystem::check(3.0f, p.get_z());
+}
+
+bool test_point3d_distance() {
+    Point3D p1(0, 0, 0), p2(3, 4, 0);
+    return TestSystem::check(5.0f, p1.distance_to(p2));
+}
+
+bool test_point3d_radius_calculation() {
+    Point3D p(3, 4, 0);
+    p.calculating_the_radius();
+    return TestSystem::check(5.0f, p.get_radius());
+}
+
+
+bool test_spheres_coincide() {
+    Sphere s1(0, 0, 0, 5), s2(0, 0, 0, 5);
+    return TestSystem::check(std::string("Совпадают"), get_spheres_relation(s1, s2));
+}
+
+bool test_spheres_externally_touch() {
+    Sphere s1(0, 0, 0, 5), s2(10, 0, 0, 5);
+    return TestSystem::check(std::string("Внешнее касание"), get_spheres_relation(s1, s2));
+}
+
+bool test_spheres_internally_touch() {
+    Sphere s1(0, 0, 0, 5), s2(3, 0, 0, 2);
+    return TestSystem::check(std::string("Внутреннее касание"), get_spheres_relation(s1, s2));
+}
+
+bool test_spheres_intersect() {
+    Sphere s1(0, 0, 0, 5), s2(6, 0, 0, 5);
+    return TestSystem::check(std::string("Пересекаются"), get_spheres_relation(s1, s2));
+}
+
+bool test_spheres_one_inside_another() {
+    Sphere s1(0, 0, 0, 5), s2(1, 0, 0, 2);
+    return TestSystem::check(std::string("Одна внутри другой"), get_spheres_relation(s1, s2));
+}
+
+bool test_spheres_separate() {
+    Sphere s1(0, 0, 0, 5), s2(20, 0, 0, 5);
+    return TestSystem::check(std::string("Не пересекаются"), get_spheres_relation(s1, s2));
+}
+
 int main() {
-	setlocale(LC_ALL, "Russian");
+    setlocale(LC_ALL, "Russian");
     TestSystem::print_init_info();
     TestSystem::start_test(test_circles_coincide, "Circle.test_circles_coincide");
     TestSystem::start_test(test_circles_externally_touch, "Circle.test_circles_externally_touch");
@@ -121,6 +172,13 @@ int main() {
     TestSystem::start_test(test_circles_intersect, "Circle.test_circles_intersect");
     TestSystem::start_test(test_circles_one_inside_another, "Circle.test_circles_one_inside_another");
     TestSystem::start_test(test_circles_separate, "Circle.test_circles_separate");
+    TestSystem::start_test(test_spheres_coincide, "Sphere.test_spheres_coincide");
+    TestSystem::start_test(test_spheres_externally_touch, "Sphere.test_spheres_externally_touch");
+    TestSystem::start_test(test_spheres_internally_touch, "Sphere.test_spheres_internally_touch");
+    TestSystem::start_test(test_spheres_intersect, "Sphere.test_spheres_intersect");
+    TestSystem::start_test(test_spheres_one_inside_another, "Sphere.test_spheres_one_inside_another");
+    TestSystem::start_test(test_spheres_separate, "Sphere.test_spheres_separate");
+    
     TestSystem::print_final_info();
 
     return 0;

@@ -5,7 +5,7 @@
 
 Point::Point(const float _x, const float _y, const float _radius) {
     if (_radius < 0) {
-        throw std::invalid_argument("˜˜˜˜˜˜˜˜ ˜˜˜˜˜˜˜ ˜˜ ˜˜˜˜˜ ˜˜˜˜ ˜˜˜˜˜˜˜˜˜˜˜˜˜");
+        throw std::invalid_argument("Ðàäèóñ òî÷êè íå ìîæåò áûòü îòðèöàòåëüíûì");
     }
 
     x = _x;
