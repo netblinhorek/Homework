@@ -115,7 +115,7 @@ bool test_circles_separate() {
 
 
 bool test_point3d_constructor() {
-    Point3D p(1.0f, 2.0f, 3.0f, 0.0f);
+    Point3D p(1.0f, 2.0f, 3.0f);
     return TestSystem::check(1.0f, p.get_x()) && 
            TestSystem::check(2.0f, p.get_y()) && 
            TestSystem::check(3.0f, p.get_z());
@@ -125,13 +125,6 @@ bool test_point3d_distance() {
     Point3D p1(0, 0, 0), p2(3, 4, 0);
     return TestSystem::check(5.0f, p1.distance_to(p2));
 }
-
-bool test_point3d_radius_calculation() {
-    Point3D p(3, 4, 0);
-    p.calculating_the_radius();
-    return TestSystem::check(5.0f, p.get_radius());
-}
-
 
 bool test_spheres_coincide() {
     Sphere s1(0, 0, 0, 5), s2(0, 0, 0, 5);

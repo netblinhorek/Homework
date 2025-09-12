@@ -3,19 +3,10 @@
 #include <cmath>
 #include <random>
 
-Point3D::Point3D(const float _x, const float _y, const float _z, const float _radius) {
-    if (_radius < 0) {
-        throw std::invalid_argument("Радиус не может быть отрицательным");
-    }
-
+Point3D::Point3D(const float _x, const float _y, const float _z) {
     x = _x;
     y = _y;
     z = _z;
-    radius = _radius;
-}
-
-void Point3D::calculating_the_radius() {
-    radius = std::sqrt(x * x + y * y + z * z);
 }
 
 float Point3D::get_x() const {
@@ -28,10 +19,6 @@ float Point3D::get_y() const {
 
 float Point3D::get_z() const {
     return z;
-}
-
-float Point3D::get_radius() const {
-    return radius;
 }
 
 void Point3D::set_x(float new_x) {
@@ -55,5 +42,5 @@ float Point3D::distance_to(const Point3D& other) const {
 
 bool Point3D::operator==(const Point3D& other) const {
     return x == other.x && y == other.y &&
-        z == other.z && radius == other.radius;
+        z == other.z;
 }
